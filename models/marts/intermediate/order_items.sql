@@ -18,7 +18,6 @@ select
     line_item.part_key,
     line_item.supplier_key,
     orders.order_date,
-    orders.order_time,
     orders.status_code as order_status_code,
     
     

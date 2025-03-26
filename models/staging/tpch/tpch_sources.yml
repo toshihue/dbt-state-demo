@@ -151,16 +151,6 @@ sources:
     description: Welcome to the dbt Labs demo dbt project! We use the [TPCH dataset](https://docs.snowflake.com/en/user-guide/sample-data-tpch.html) to create a sample project to emulate what a production project might look like!
     database: raw
     schema: tpch_now
-    freshness:
-      warn_after:
-        count: 24
-        period: hour
-      error_after:
-        count: 48
-        period: hour
-    loaded_at_field: o_ordertime
- 
-
     tables:
       - name: orders
         description: main order tracking table
@@ -195,8 +185,8 @@ sources:
           - name: o_comment
             description: '{{ doc("comment") }}'
       - name: lineitem
+        schema: tpch_now
         description: main lineitem table
-        freshness: null
         columns:
           - name: l_orderkey
             description: Foreign Key to O_ORDERKEY

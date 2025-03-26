@@ -66,7 +66,7 @@ models:
         columns:
           - include: all
             exclude: [is_high_value,is_mid_value,is_low_value]
-        deprecation_date: 2025-01-31 00:00:00.00+00:00
+        deprecation_date: 2024-8-31 00:00:00.00+00:00
       - v: 2
         columns:
           - include: all
@@ -199,7 +199,7 @@ models:
         description: foreign key for customers
         data_tests:
           - relationships:
-              to: ref('dim_customers',v=2)
+              to: ref('dim_customers')
               field: customer_key
               severity: error
       - name: order_date

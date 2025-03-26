@@ -117,3 +117,48 @@ semantic_models:
       - name: total_expense
         agg: sum
         expr: supplier_cost
+      - name: supplier_revenue
+        agg: sum
+        expr: net_item_sales_amount
+      - name: supplier_gross_revenue
+        agg: sum
+        expr: gross_item_sales_amount
+      - name: total_items_sold
+        agg: sum
+        expr: quantity
+      - name: total_gross_sales
+        agg: sum
+        expr: gross_item_sales_amount
+      - name: average_gross_sales
+        agg: average
+        expr: gross_item_sales_amount
+
+  - name: suppliers
+    description: |
+      Supplier dimension table containing supplier details and their geographical information
+    model: ref('dim_suppliers')
+
+    entities:
+      - name: supplier
+        type: primary
+        expr: supplier_key
+
+    dimensions:
+      - name: supplier_nation
+        type: categorical
+        expr: nation
+      
+      - name: supplier_region
+        type: categorical
+        expr: region
+      
+      - name: supplier_account_balance
+        description: Bucketing suppliers by their account balance
+        type: categorical
+        expr: |
+          case
+            when account_balance < 0 then 'Negative Balance'
+            when account_balance < 5000 then 'Low'
+            when account_balance < 15000 then 'Medium'
+            else 'High'
+          end
