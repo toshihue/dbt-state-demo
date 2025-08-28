@@ -6,7 +6,7 @@ def model( dbt, session ):
     
     dbt.config(
         materialized="table", # the incremental materialization is also supported
-        packages=['pandas==2.2.1','modin==0.30.1','Prophet','holidays==0.18','snowflake-snowpark-python[modin]'], # how to import python libraries in dbt's context
+        packages=['pandas==2.2.1','modin==0.30.1','Prophet','holidays==0.18','snowflake-snowpark-python'], # how to import python libraries in dbt's context
         python_version="3.11"
     )
 
