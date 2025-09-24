@@ -73,7 +73,9 @@ metrics:
     label: Cumulative Revenue (TTM)
     type_params:
       measure: total_revenue
-      window: 12 months
+      cumulative_type_params: 
+        period_agg: first
+        window: 12 months
 
   - name: weekly_customers
     description: Number of active weekly customers
@@ -81,7 +83,9 @@ metrics:
     label: Weekly Active Customers
     type_params:
       measure: total_customers
-      window: 7 days
+      cumulative_type_params:
+        period_agg: first
+        window: 7 days
 
   - name: monthly_customers
     description: Number of active monthly customers
@@ -89,7 +93,9 @@ metrics:
     label: Monthly Active Customers
     type_params:
       measure: total_customers
-      window: 1 month
+      cumulative_type_params: 
+        period_agg: first
+        window: 1 month
 
   # Ratio metrics     
   - name: average_revenue_per_customer

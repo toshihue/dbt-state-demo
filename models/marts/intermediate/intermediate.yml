@@ -3,8 +3,6 @@ version: 2
 models:
   - name: order_items
     description: Intermediate model where we calculate item price, discounts and tax. This model is at the order item level.
-    tags:
-      - output_table_type|orders
     columns:
       - name: order_item_key
         description: '{{ doc("order_item_key") }}'
@@ -59,7 +57,9 @@ models:
         description: item level tax total
       - name: net_item_sales_amount
         description: '{{ doc("net_item_sales_amount") }}'
-  
+    config:
+      tags:
+        - output_table_type|orders
   - name: part_suppliers
     description: Intermediate model where we join part, supplier and part_supplier. This model is at the part supplier level.
     columns:
@@ -109,7 +109,7 @@ models:
           - unique
       - name: lifetime_value
       - name: tier_name
-  
+
 unit_tests:
   - name: tiers_are_working
     description: "check if the logic for tiering is working correctly"
@@ -128,12 +128,12 @@ unit_tests:
         rows:
           - {customer_key: 629, total_price: 163443}
           - {customer_key: 4, total_price: 4134568}
-          - {customer_key: 1,  total_price: 1428872}
+          - {customer_key: 1, total_price: 1428872}
           - {customer_key: 26, total_price: 418512}
 
     expect:
       rows:
-        - {customer_key: 629,  tier_name: tier1}
-        - {customer_key: 4,    tier_name: tier2}
-        - {customer_key: 1,    tier_name: tier3}
-        - {customer_key: 26,   tier_name: tier4}        
+        - {customer_key: 629, tier_name: tier1}
+        - {customer_key: 4, tier_name: tier2}
+        - {customer_key: 1, tier_name: tier3}
+        - {customer_key: 26, tier_name: tier4}
