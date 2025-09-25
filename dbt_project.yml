@@ -1,4 +1,3 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good project name should reflect your organization's
 # name or the intended use of these models
@@ -17,14 +16,10 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
-
-
-target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_modules"
-    - "dbt_packages"
+  - "target"
+  - "dbt_modules"
+  - "dbt_packages"
 
 on-run-start:
   # - '{{create_udfs()}}' # comment / uncomment this line to build UDFs called in the create_udfs macro
@@ -42,8 +37,9 @@ vars:
 
 
 flags:
-  enable_iceberg_materializations: True
+  enable_iceberg_materializations: true
 
+  require_generic_test_arguments_property: true
 dbt-cloud:
   # Project details sourced from https://www.notion.so/dbtlabs/SA-Demo-Assets-fa6e16d0a9de4c07ba7511165958eea5?pvs=4#647e3924ef57460f9ab2b0eb3479c153
 
@@ -84,9 +80,8 @@ models:
     marts:
       core:
         +materialized: table
-        +grants:  
+        +grants:
           select: ['dashboard_user']
-      
 seeds:
   analytics:
     snowflake_contract_rates:

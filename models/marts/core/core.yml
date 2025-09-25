@@ -8,11 +8,11 @@ groups:
 
 models:
   - name: dim_customers
-    group: data_team
-    access: public
     config:
       contract:
         enforced: true
+      group: data_team
+      access: public
     description: Customer dimensions table
     columns:
       - name: customer_key
@@ -26,8 +26,10 @@ models:
         description: region name
         data_tests:
           - accepted_values:
-              values: ['AFRICA','MIDDLE EAST','ASIA','EUROPE','AMERICA']
-              severity: warn
+              config:
+                severity: warn
+              arguments:
+                values: ['AFRICA', 'MIDDLE EAST', 'ASIA', 'EUROPE', 'AMERICA']
       - name: name
         data_type: varchar(25)
         description: customer id
@@ -65,14 +67,14 @@ models:
       - v: 1
         columns:
           - include: all
-            exclude: [is_high_value,is_mid_value,is_low_value]
-        deprecation_date: 2024-8-31 00:00:00.00+00:00
+            exclude: [is_high_value, is_mid_value, is_low_value]
+        deprecation_date: 2024-08-31 00:00:00+00:00
       - v: 2
         columns:
           - include: all
             exclude: [tier_name]
     latest_version: 2
-    
+
   - name: dim_parts
     description: Parts dimensions table
     columns:
@@ -116,17 +118,15 @@ models:
         description: '{{ doc("phone_number") }}'
       - name: account_balance
         description: '{{ doc("account_balance") }}'
- 
   - name: fct_order_items
-    group: data_team
-    access: public
     data_tests:
-    - dbt_expectations.expect_table_aggregation_to_equal_other_table:
-        name: orders_sales_amount_equals_order_item_sales_amount
-        expression: sum(net_item_sales_amount)
-        compare_model: ref("fct_orders")
-        compare_expression: sum(net_item_sales_amount)
-        group_by: [order_key]
+      - dbt_expectations.expect_table_aggregation_to_equal_other_table:
+          name: orders_sales_amount_equals_order_item_sales_amount
+          arguments:
+            expression: sum(net_item_sales_amount)
+            compare_model: ref("fct_orders")
+            compare_expression: sum(net_item_sales_amount)
+            group_by: [order_key]
     description: order items fact table
     columns:
       - name: order_item_key
@@ -171,7 +171,7 @@ models:
       - name: nation_key
         description: 'Nation key'
         data_tests:
-         - not_null
+          - not_null
       - name: order_item_count
         description: count of order items
       - name: quantity
@@ -186,7 +186,9 @@ models:
         description: '{{ doc("item_tax_amount") }}'
       - name: net_item_sales_amount
         description: '{{ doc("net_item_sales_amount") }}'
-  
+    config:
+      group: data_team
+      access: public
   - name: fct_orders
     description: orders fact table
     columns:
@@ -199,9 +201,11 @@ models:
         description: foreign key for customers
         data_tests:
           - relationships:
-              to: ref('dim_customers')
-              field: customer_key
-              severity: error
+              config:
+                severity: error
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
       - name: order_date
         description: date of the order
       - name: status_code
