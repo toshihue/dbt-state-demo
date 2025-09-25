@@ -5,7 +5,10 @@ on:
     types:
       - closed
       
-      
+permissions:
+  contents: read
+  pull-requests: write
+  
 jobs:
   if_merged:
      # Only run the job if the pull request was merged and merged into the `main` branch
