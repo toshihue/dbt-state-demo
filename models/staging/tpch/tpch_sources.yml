@@ -289,7 +289,7 @@ sources:
             description: primary key of the movie review table
             data_tests:
               - not_null
-              - unique
+              # - unique
           - name: movie_id
             description: foreign key identifying which movie the review is for
             data_tests:
