@@ -1,4 +1,4 @@
-name: 'analytics'
+name: 'dbt-state-demo'
 version: '1.0.0'
 config-version: 2
 
@@ -7,14 +7,14 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-profile: 'analytics'
+profile: 'dbt-state-demo'
 
 dbt-cloud:
   account-host: "ma441.au1.dbt.com"
-  project-id: 10582
+  project-id: 20635
 
 models:
-  analytics:
+  dbt-state-demo:
     staging:
       +materialized: view
     marts:
