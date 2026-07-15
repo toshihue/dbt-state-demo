@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dim_customers
-    description: Customer dimension enriched with order history.
+    description: Customer dimension sourced only from the customer lineage.
     columns:
       - name: customer_id
         description: Primary key for customers.
@@ -24,7 +24,7 @@ models:
           - not_null
 
   - name: agg_orders_by_customer
-    description: Customer-level order summary for state selection demos.
+    description: Final customer order summary for full lineage demos.
     columns:
       - name: customer_id
         description: Customer grain for the aggregate.

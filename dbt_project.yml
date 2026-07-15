@@ -15,6 +15,9 @@ dbt-cloud:
 
 models:
   dbt-state-demo:
+    +static_analysis: strict
+    +state:
+      lag_tolerance: 1s
     staging:
       +materialized: view
     marts:
