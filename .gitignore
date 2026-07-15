@@ -3,3 +3,8 @@ dbt_modules/
 dbt_packages/
 logs/
 dbt_internal_packages/
+
+# Local user/tooling config
+.claude/
+.user.yml
+profiles.yml
