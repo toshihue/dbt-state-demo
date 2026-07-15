@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Clean customer records from the Jaffle Shop source.
+    columns:
+      - name: customer_id
+        description: Primary key for customers.
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_name
+        description: Full customer name.
+
+  - name: stg_orders
+    description: Clean order records from the Jaffle Shop source.
+    columns:
+      - name: order_id
+        description: Primary key for orders.
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: Foreign key to stg_customers.
+        data_tests:
+          - not_null
+      - name: order_status
+        description: Current order status.

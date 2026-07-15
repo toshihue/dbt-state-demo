@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: Customer dimension enriched with order history.
+    columns:
+      - name: customer_id
+        description: Primary key for customers.
+        data_tests:
+          - not_null
+          - unique
+
+  - name: fct_orders
+    description: Order fact table joined to customer attributes.
+    columns:
+      - name: order_id
+        description: Primary key for orders.
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: Foreign key to dim_customers.
+        data_tests:
+          - not_null
+
+  - name: agg_orders_by_customer
+    description: Customer-level order summary for state selection demos.
+    columns:
+      - name: customer_id
+        description: Customer grain for the aggregate.
+        data_tests:
+          - not_null
+          - unique

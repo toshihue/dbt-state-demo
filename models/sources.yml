@@ -1,0 +1,53 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: Minimal source system for the dbt state demo.
+    database: analytics
+    tables:
+      - name: customers
+        description: Raw customer records from Jaffle Shop.
+        external:
+          location: "@s3_dbt_tutorial_public"
+          file_format: "(type=csv field_delimiter=',' skip_header=1)"
+          auto_refresh: false
+          pattern: "jaffle_shop_customers.csv"
+          partitions:
+            - name: source_file_name
+              data_type: varchar
+              expression: metadata$filename
+        columns:
+          - name: ID
+            data_type: NUMBER
+            description: Customer identifier.
+          - name: FIRST_NAME
+            data_type: VARCHAR
+            description: Customer first name.
+          - name: LAST_NAME
+            data_type: VARCHAR
+            description: Customer last name.
+
+      - name: orders
+        description: Raw order records from Jaffle Shop.
+        external:
+          location: "@s3_dbt_tutorial_public"
+          file_format: "(type=csv field_delimiter=',' skip_header=1)"
+          auto_refresh: false
+          pattern: "jaffle_shop_orders.csv"
+          partitions:
+            - name: source_file_name
+              data_type: varchar
+              expression: metadata$filename
+        columns:
+          - name: ID
+            data_type: NUMBER
+            description: Order identifier.
+          - name: USER_ID
+            data_type: NUMBER
+            description: Customer identifier for the order.
+          - name: ORDER_DATE
+            data_type: DATE
+            description: Date the order was placed.
+          - name: STATUS
+            data_type: VARCHAR
+            description: Current order status.
